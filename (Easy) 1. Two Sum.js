@@ -1,18 +1,34 @@
 //Solution 1
 var twoSum = function (array, target) {
-  const resultIndex = [];
-  array.map((value, index) => {
-    if (array.indexOf(target - value) !== -1) {
-      resultIndex.push([index, array.indexOf(target - value)]);
+  //solution 1
+  // const resultIndex = [];
+  // array.map((value, index) => {
+  //   if (array.indexOf(target - value) !== -1) {
+  //     resultIndex.push([index, array.indexOf(target - value)]);
+  //   }
+  // });
+  // const uniqueResultsIndex = resultIndex
+  //   .map((nestedArrays) => nestedArrays.sort((a, b) => a - b))
+  //   .filter(((t = {}), (arr) => !(t[arr] = arr in t) && arr[0] !== arr[1]))
+  //   .flat();
+  // return uniqueResultsIndex;
+
+  //More time optimization
+  let Storage = {};
+  let resultIndex = [];
+  for (let i = 0; i < array.length; i++) {
+    if (Storage[target - array[i]] != undefined) {
+      resultIndex.push([Storage[target - array[i]], i]);
     }
-  });
-  const uniqueResultsIndex = resultIndex
+    Storage[array[i]] = i;
+  }
+  let uniqueResultsIndex = resultIndex
     .map((nestedArrays) => nestedArrays.sort((a, b) => a - b))
     .filter(((t = {}), (arr) => !(t[arr] = arr in t) && arr[0] !== arr[1]))
     .flat();
-
   return uniqueResultsIndex;
 
+  //---------------------------------------------------------------------------------
   //solution 2
   // let Storage = {};
   // for (const [index, value] of array.entries()) {
@@ -23,5 +39,5 @@ var twoSum = function (array, target) {
   //   }
   // }
 };
-console.log(twoSum([3, 2, 4], 6));
+console.log(twoSum([2, 7, 11, 15], 9));
 //--------------------------------------------------------------------------------
