@@ -6,11 +6,11 @@
             numCount[it] = numCount.getOrDefault(it, 0) + 1
         }
 
-        numCount.forEach { (t, u) ->
-            frequency[u] = frequency.getOrDefault(u, emptyList()) + t
+        numCount.forEach { (key, value) ->
+            frequency[value] = frequency.getOrDefault(value, emptyList()) + key
         }
 
-        var maxFrequency = frequency.getMaxFrequency().first
+        var maxFrequency = frequency.getMaxFrequency().first // k = 2, 1 1 1 2 2 2 3 3 3 4 5 6
         val result = hashSetOf<Int>()
 
         while (maxFrequency >= 0) {
@@ -22,8 +22,7 @@
         }
 
 
-
-        return result.toIntArray()
+        return result.toIntArray() 
     }
 
     fun Map<Int, List<Int>>.getMaxFrequency(): Pair<Int, List<Int>> {
