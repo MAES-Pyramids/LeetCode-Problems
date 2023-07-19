@@ -17,7 +17,7 @@ var topKFrequent = function (nums, k) {
 //-------------//-------------//-------------Test Cases--------------//--------------//--------------//
 console.log(topKFrequent([1, 1, 1, 2, 2, 3], 2));
 console.log(topKFrequent([3, 0, 1, 0], 1));
-//-------------//-------------//-------------concolusion--------------//--------------//--------------//
+//-------------//-------------//-------------conclusions--------------//--------------//--------------//
 // Note:
 // 1- when use (a, b) => b[1] - a[1] we consider b and a as two element (which are two sub arrays) and cause b[1] will return the second element in the array which is the value of the key/value array then b - a will sort the array in descending order based on values
 // 2- ([key]) => key is similar to (element) => element[0] as it is destructuring the key/value array and taking the first element
