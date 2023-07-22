@@ -13,7 +13,6 @@ function LaptopsCompare(input) {
   }
   return console.log("Happy Alex");
 }
-//-------------------------------------------------------------------Second Solution
 LaptopsCompare([
   [1, 2],
   [2, 1],

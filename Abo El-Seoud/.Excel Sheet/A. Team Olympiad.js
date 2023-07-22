@@ -46,6 +46,3 @@ function FindValue(studentNumber, stdArray) {
   console.log(min);
   console.log(result.map((val) => val.join(" ")).join("\n"));
 }
-
-// FindValue(7, [1, 3, 1, 3, 2, 1, 2]);
-// FindValue(3, [1, 2, 3]);
