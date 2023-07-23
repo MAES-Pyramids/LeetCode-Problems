@@ -1,41 +1,48 @@
 const readline = require("readline");
 
-function readInput() {
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-  });
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
 
-  let lines = [];
-  rl.on("line", (line) => {
-    lines.push(line);
-    if (lines.length === 2) {
-      rl.close();
-    }
-  });
+let lines = [];
 
-  rl.on("close", () => {
-    const arrayData = lines[1].trim();
-    const array = arrayData.split("");
-    Footprints(array);
-  });
-}
+rl.on("line", (line) => {
+  lines.push(line);
+  if (lines.length === 2) {
+    rl.close();
+  }
+});
 
-readInput();
+rl.on("close", () => {
+  const arrayData = lines[1].trim();
+  const array = arrayData.split(" ");
+  CommonDifference(array);
+});
 
 //--------------------------------------------------------
-function Footprints(array) {
-  if (array.includes("L") && array.includes("R")) {
-    let start = array.indexOf("R") + 1;
-    let end = array.indexOf("L");
-    console.log(start, end);
+function CommonDifference(array) {
+  let map = new Map();
+  for (let i = 0; i < array.length; i++) {
+    if (map.has(array[i])) {
+      map.set(array[i], [...map.get(array[i]), i]);
+    } else {
+      map.set(array[i], [i]);
+    }
   }
-  if (array.includes("R") && !array.includes("L")) {
-    let lastR = array.lastIndexOf("R") + 2;
-    console.log(array.indexOf("R") + 1, lastR);
-  }
-  if (array.includes("L") && !array.includes("R")) {
-    let StartL = array.lastIndexOf("L") + 1;
-    console.log(StartL, array.indexOf("L"));
-  }
+  console.log(map.size);
+  [...map.entries()].forEach((element) => {
+    if (element[1].length === 1) {
+      console.log(element[0], 0);
+    } else {
+      let [difference, flag] = [element[1][1] - element[1][0], true];
+      for (let i = 1; i < element[1].length; i++) {
+        if (element[1][i] - element[1][i - 1] != difference) {
+          flag = false;
+          break;
+        }
+      }
+      if (flag) console.log(element[0], difference);
+    }
+  });
 }
