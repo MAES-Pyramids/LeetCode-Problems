@@ -1,42 +1,33 @@
-const readline = require("readline");
+function PrintSnakeTower(numberOFSnakes, snakesArray) {
+  let sortedSnakes = [...snakesArray].sort((a, b) => b - a);
+  let shiftedArray = [];
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
-});
+  for (let i = 0; i < numberOFSnakes; i++) {
+    if (snakesArray[i] == sortedSnakes[0]) {
+      process.stdout.write(`${snakesArray[i]} `);
+      sortedSnakes.shift();
 
-let numberOFVectors;
-let vectorNestedArray = [];
-
-const getInputAsync = async () => {
-  return new Promise((resolve) => {
-    rl.question("", (line) => {
-      resolve(line);
-    });
-  });
-};
-
-const readVectors = async () => {
-  numberOFVectors = parseInt(await getInputAsync());
-  for (let i = 0; i < numberOFVectors; i++) {
-    const line = await getInputAsync();
-    vectorNestedArray.push(line.split(" ").map((val) => parseInt(val)));
+      for (let j = 0; j < shiftedArray.length; j++) {
+        if (
+          shiftedArray[j] < snakesArray[i] &&
+          shiftedArray[j] >= sortedSnakes[0]
+        ) {
+          process.stdout.write(`${shiftedArray[j]} `);
+          shiftedArray.splice(j, 1);
+          j--;
+        }
+      }
+    } else {
+      console.log();
+      shiftedArray.push(snakesArray[i]);
+    }
   }
-
-  FindNetForce(numberOFVectors, vectorNestedArray);
-  rl.close();
-};
-
-readVectors();
-
-//--------------------------------------------------------
-function FindNetForce(numberOFVectors, vectorNestedArray) {
-  let [x, y, z] = [0, 0, 0];
-  for (let i = 0; i < numberOFVectors; i++) {
-    x += vectorNestedArray[i][0];
-    y += vectorNestedArray[i][1];
-    z += vectorNestedArray[i][2];
+  if (shiftedArray.length > 0) {
+    shiftedArray
+      .sort((a, b) => b - a)
+      .map((snake) => process.stdout.write(`${snake} `));
   }
-  if (x == 0 && y == 0 && z == 0) process.stdout.write("YES");
-  else process.stdout.write("NO");
 }
+// PrintSnakeTower(3, [3, 1, 2]);
+PrintSnakeTower(5, [4, 5, 1, 2, 3]);
+// PrintSnakeTower(10, [10, 9, 6, 7, 8, 3, 4, 5, 1, 2]);
